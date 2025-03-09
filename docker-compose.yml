@@ -22,11 +22,12 @@ services:
         networks:
             - sail
         depends_on:
-            - pgsql
+            - db-app
+            - db-workspace
             - redis
             - mailpit
             - typesense
-    pgsql:
+    db-app:
         image: 'postgres:17'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
@@ -36,7 +37,7 @@ services:
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
+            - 'sail-db-app:/var/lib/postgresql/data'
         networks:
             - sail
         healthcheck:
@@ -48,6 +49,30 @@ services:
                 - '${DB_DATABASE}'
                 - '-U'
                 - '${DB_USERNAME}'
+            retries: 3
+            timeout: 5s
+    db-workspace:
+        image: 'postgres:17'
+        ports:
+            - '${FORWARD_WORKSPACE_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${WORKSPACE_PASSWORD:-secret}'
+            POSTGRES_DB: '${WORKSPACE_DATABASE}'
+            POSTGRES_USER: '${WORKSPACE_USERNAME}'
+            POSTGRES_PASSWORD: '${WORKSPACE_PASSWORD:-secret}'
+        volumes:
+            - 'sail-db-workspace:/var/lib/postgresql/data'
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - pg_isready
+                - '-q'
+                - '-d'
+                - '${WORKSPACE_DATABASE}'
+                - '-U'
+                - '${WORKSPACE_USERNAME}'
             retries: 3
             timeout: 5s
     redis:
@@ -97,7 +122,9 @@ networks:
     sail:
         driver: bridge
 volumes:
-    sail-pgsql:
+    sail-db-app:
+        driver: local
+    sail-db-workspace:
         driver: local
     sail-redis:
         driver: local
