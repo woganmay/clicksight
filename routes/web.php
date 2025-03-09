@@ -7,9 +7,11 @@ Route::get('/', function () {
     return view('landing.main');
 });
 
-Auth::routes();
+Auth::routes([
+    'verify' => true
+]);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ HomeController::class, 'dashboard' ])->name('dashboard');
 });
 
