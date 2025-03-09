@@ -2,7 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base { } For font-faces */
+@layer base {
+    @font-face {
+        font-family: 'Roboto';
+        src: url('../fonts/Roboto.ttf') format('truetype');
+    }
+
+    .font-roboto-regular {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+    }
+
+}
 
 #app {
     @apply h-full;
