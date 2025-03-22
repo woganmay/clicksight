@@ -46,4 +46,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get a user by their email address
+     *
+     * @param string $email
+     * @return User|null
+     */
+    public static function getByEmail(string $email): ?User
+    {
+        return self::where('email', $email)->first();
+    }
 }

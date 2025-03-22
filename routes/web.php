@@ -12,8 +12,6 @@ Auth::routes([
 ]);
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [ HomeController::class, 'dashboard' ])->name('dashboard');
+    Route::get('/home', [ HomeController::class, 'home' ])->name('home');
     Route::get('/avatar', [ HomeController::class, 'renderMyAvatar' ])->name('avatar');
 });
-
-
