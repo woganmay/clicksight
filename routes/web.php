@@ -13,6 +13,7 @@ Auth::routes([
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ HomeController::class, 'dashboard' ])->name('dashboard');
+    Route::get('/avatar', [ HomeController::class, 'renderMyAvatar' ])->name('avatar');
 });
 
 

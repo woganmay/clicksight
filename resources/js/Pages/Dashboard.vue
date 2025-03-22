@@ -1,5 +1,8 @@
 <script setup>
+import Layout from "../components/Layout.vue";
 </script>
 <template>
-    Inertia-powered dashboard
+    <Layout>
+        Inertia-powered dashboard
+    </Layout>
 </template>

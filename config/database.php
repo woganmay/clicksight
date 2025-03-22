@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'main'),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
+        'main' => [
             'driver' => 'pgsql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -91,6 +91,21 @@ return [
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'workspace' => [
+            'driver' => 'pgsql',
+            'url' => env('WORKSPACE_URL'),
+            'host' => env('WORKSPACE_HOST', '127.0.0.1'),
+            'port' => env('WORKSPACE_PORT', '5432'),
+            'database' => env('WORKSPACE_DATABASE', 'laravel'),
+            'username' => env('WORKSPACE_USERNAME', 'root'),
+            'password' => env('WORKSPACE_PASSWORD', ''),
+            'charset' => env('WORKSPACE_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
