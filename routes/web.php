@@ -15,8 +15,5 @@ Auth::routes([
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [ HomeController::class, 'home' ])->name('home');
     Route::get('/avatar', [ HomeController::class, 'renderMyAvatar' ])->name('avatar');
-
-    // Settings routes
-    // Route::get('/settings', [ SettingsController::class, 'index' ])->name('settings');
-    // Route::post('/settings', [ SettingsController::class, 'update' ])->name('settings.update');
+    Route::get('/settings', [ HomeController::class, 'settings' ])->name('settings');
 });

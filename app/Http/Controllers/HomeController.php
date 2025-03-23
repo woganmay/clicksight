@@ -11,6 +11,11 @@ class HomeController extends Controller
         return inertia('Home');
     }
 
+    public function settings()
+    {
+        return inertia('Settings');
+    }
+
     public function renderMyAvatar()
     {
         $user = request()->user();
@@ -21,7 +26,7 @@ class HomeController extends Controller
         }
 
         // Get the binary avatar data
-        $avatarData = $user->avatar;
+        $avatarData = stream_get_contents($user->avatar);
 
         // Detect the image type (you might want to store this separately in the future)
         $finfo = new \finfo(FILEINFO_MIME_TYPE);

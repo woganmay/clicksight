@@ -1,6 +1,15 @@
 <script setup>
 import { ref } from 'vue'
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import {
+    Dialog,
+    DialogPanel,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+    TransitionChild,
+    TransitionRoot
+} from '@headlessui/vue'
 import { Bars3Icon, HomeIcon, XMarkIcon, PlusIcon } from '@heroicons/vue/24/outline'
 import { usePage, Link, } from "@inertiajs/vue3";
 
@@ -16,6 +25,14 @@ const dashboards = [
     { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
     { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
 ]
+
+const userNavigation = [
+    { name: 'Settings', href: '/settings' }
+]
+
+const logout = () => {
+    document.getElementById('logout-form').submit();
+}
 
 const sidebarOpen = ref(false)
 </script>
@@ -106,11 +123,24 @@ const sidebarOpen = ref(false)
                             </ul>
                         </li>
                         <li class="-mx-6 mt-auto">
-                            <Link href="/settings" class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-roboto-regular text-gray-900 hover:bg-gray-50">
-                                <img class="size-8 rounded-full bg-gray-50" src="/avatar" alt="" />
-                                <span class="sr-only">Your profile</span>
-                                <span aria-hidden="true">{{ page.props.user.name }}</span>
-                            </Link>
+                            <Menu as="div" class="relative hover:bg-gray-50">
+                                <MenuButton class="w-full">
+                                    <div class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-roboto-regular text-gray-900">
+                                        <img class="size-8 rounded-full bg-gray-50" src="/avatar" alt="" />
+                                        <span aria-hidden="true">{{ page.props.user.name }}</span>
+                                    </div>
+                                </MenuButton>
+                                <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                                    <MenuItems class="absolute bottom-4 right-4 z-10 mt-2.5 w-32 rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                        <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
+                                            <Link :href="item.href" :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900']">{{ item.name }}</Link>
+                                        </MenuItem>
+                                        <MenuItem v-slot="{ active }">
+                                            <button @click="logout" :class="[active ? 'bg-gray-50 outline-none' : '', 'block px-3 py-1 text-sm/6 text-gray-900 w-full text-left']">Sign out</button>
+                                        </MenuItem>
+                                    </MenuItems>
+                                </transition>
+                            </Menu>
                         </li>
                     </ul>
                 </nav>
