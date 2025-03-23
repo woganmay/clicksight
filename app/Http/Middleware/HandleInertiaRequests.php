@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'name' => $user->name ?? null,
                 'email' => $user->email ?? null
             ],
+            'recent' => ($user == null) ? [] : cs()->getRecentDashboards(),
             'current' => $request->route()->getName(),
         ]);
     }

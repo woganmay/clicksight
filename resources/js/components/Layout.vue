@@ -20,12 +20,6 @@ const navigation = [
     { name: 'New', href: '#', icon: PlusIcon, current: false },
 ]
 
-const dashboards = [
-    { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-    { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-    { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
-]
-
 const userNavigation = [
     { name: 'Settings', href: '/settings' }
 ]
@@ -75,8 +69,8 @@ const sidebarOpen = ref(false)
                                         <li>
                                             <div class="text-xs/6 font-roboto-regular text-gray-400">Recent Dashboards</div>
                                             <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                                <li v-for="dashboard in dashboards" :key="dashboard.name">
-                                                    <a :href="dashboard.href" :class="[dashboard.current ? 'bg-gray-50 text-orange-600' : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-roboto-regular']">
+                                                <li v-for="dashboard in page.props.recent" :key="dashboard.name">
+                                                    <a :href="`/dashboard/${dashboard.id}`" :class="[dashboard.current ? 'bg-gray-50 text-orange-600' : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-roboto-regular']">
                                                         <span :class="[dashboard.current ? 'border-orange-600 text-orange-600' : 'border-gray-200 text-gray-400 group-hover:border-orange-600 group-hover:text-orange-600', 'flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium']">{{ dashboard.initial }}</span>
                                                         <span class="truncate">{{ dashboard.name }}</span>
                                                     </a>
@@ -114,8 +108,8 @@ const sidebarOpen = ref(false)
                         <li>
                             <div class="text-xs/6 font-roboto-regular text-gray-400">Recent Dashboards</div>
                             <ul role="list" class="-mx-2 mt-2 space-y-1">
-                                <li v-for="dashboard in dashboards" :key="dashboard.name">
-                                    <a :href="dashboard.href" :class="[dashboard.current ? 'bg-gray-50 text-orange-600' : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-roboto-regular']">
+                                <li v-for="dashboard in page.props.recent" :key="dashboard.name">
+                                    <a :href="`/dashboard/${dashboard.id}`" :class="[dashboard.current ? 'bg-gray-50 text-orange-600' : 'text-gray-700 hover:bg-gray-50 hover:text-orange-600', 'group flex gap-x-3 rounded-md p-2 text-sm/6 font-roboto-regular']">
                                         <span :class="[dashboard.current ? 'border-orange-600 text-orange-600' : 'border-gray-200 text-gray-400 group-hover:border-orange-600 group-hover:text-orange-600', 'flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium']">{{ dashboard.initial }}</span>
                                         <span class="truncate">{{ dashboard.name }}</span>
                                     </a>

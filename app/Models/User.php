@@ -68,4 +68,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return self::where('email', $email)->first();
     }
+
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class);
+    }
+
+    public function workspacesJoined()
+    {
+        return $this->belongsToMany(Workspace::class, 'user_workspace', 'user_id', 'workspace_id')
+                    ->wherePivot('relationship', 'member');
+    }
 }
