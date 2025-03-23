@@ -7,9 +7,9 @@
     @inertiaHead
 </head>
 <body class="h-full">
-@inertia
-<form action="/logout" method="POST" id="logout-form">
-    @csrf
-</form>
+    @inertia
+    <form action="/logout" method="POST" id="logout-form">
+        @csrf
+    </form>
 </body>
 </html>

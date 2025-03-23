@@ -47,10 +47,11 @@ class Deploy extends Command
     private function ensureServiceUserExists(): void
     {
         try {
-            $serviceUser = getServiceUser(true);
+            $serviceUser = getServiceUser();
             $this->info("[ensureServiceUserExists] Service user exists with ID: {$serviceUser->id}");
         } catch (\Exception $ex) {
             $this->error("[ensureServiceUserExists] Error! " . $ex->getMessage());
+            throw $ex;
         }
     }
 

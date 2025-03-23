@@ -32,19 +32,18 @@ class ResetPassword extends Command
 
         if (!$user) {
             $this->error("No user found with email: {$email}");
-            return 1;
+            return Command::FAILURE;
         }
 
         // Generate a random password
         $newPassword = Str::random(12);
-        
+
         // Update the user's password
         $user->password = $newPassword;
         $user->save();
 
-        $this->info("Password for {$email} has been reset.");
-        $this->info("New password: {$newPassword}");
+        $this->info("Password for {$email} has been reset to: $newPassword");
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

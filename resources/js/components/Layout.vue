@@ -2,12 +2,12 @@
 import { ref } from 'vue'
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Bars3Icon, HomeIcon, XMarkIcon, PlusIcon } from '@heroicons/vue/24/outline'
-import {usePage} from "@inertiajs/vue3";
+import { usePage, Link, } from "@inertiajs/vue3";
 
 const page = usePage();
 
 const navigation = [
-    { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+    { name: 'Home', href: '/home', icon: HomeIcon, current: true },
     { name: 'New', href: '#', icon: PlusIcon, current: false },
 ]
 
@@ -106,11 +106,11 @@ const sidebarOpen = ref(false)
                             </ul>
                         </li>
                         <li class="-mx-6 mt-auto">
-                            <a href="#" class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-roboto-regular text-gray-900 hover:bg-gray-50">
+                            <Link href="/settings" class="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-roboto-regular text-gray-900 hover:bg-gray-50">
                                 <img class="size-8 rounded-full bg-gray-50" src="/avatar" alt="" />
                                 <span class="sr-only">Your profile</span>
                                 <span aria-hidden="true">{{ page.props.user.name }}</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </nav>
